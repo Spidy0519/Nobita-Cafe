@@ -1,0 +1,221 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Custom Base Styles ── */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: #FFF8F0;
+    color: #2C1810;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  button {
+    cursor: pointer;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  ::selection {
+    background-color: #C68B59;
+    color: white;
+  }
+}
+
+/* ── Component Styles ── */
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 text-white px-6 py-3 rounded-xl font-semibold 
+           transition-all duration-300 hover:bg-primary-700 hover:shadow-lg 
+           hover:shadow-primary-600/25 active:scale-95 
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent border-2 border-primary-600 text-primary-600 
+           px-6 py-3 rounded-xl font-semibold transition-all duration-300 
+           hover:bg-primary-600 hover:text-white active:scale-95;
+  }
+
+  .btn-dark {
+    @apply bg-espresso text-white px-6 py-3 rounded-xl font-semibold 
+           transition-all duration-300 hover:bg-mocha hover:shadow-lg 
+           active:scale-95;
+  }
+
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg 
+           border border-white/20;
+  }
+
+  .glass-dark {
+    @apply bg-espresso/80 backdrop-blur-lg rounded-2xl shadow-lg 
+           border border-white/10 text-white;
+  }
+
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full 
+           text-xs font-semibold;
+  }
+
+  .badge-popular {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full 
+           text-xs font-semibold bg-amber-100 text-amber-800;
+  }
+
+  .badge-new {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full 
+           text-xs font-semibold bg-emerald-100 text-emerald-800;
+  }
+
+  .badge-chef {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full 
+           text-xs font-semibold bg-purple-100 text-purple-800;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 
+           bg-white focus:ring-2 focus:ring-primary-400 focus:border-transparent 
+           outline-none transition-all duration-200 text-sm;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  /* Menu item card */
+  .menu-card {
+    @apply overflow-hidden transition-all duration-300 
+           hover:shadow-xl hover:-translate-y-1;
+    @apply bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg border border-white/20;
+  }
+
+  .menu-card-image {
+    @apply relative overflow-hidden;
+    aspect-ratio: 4/3;
+  }
+
+  .menu-card-image img {
+    @apply w-full h-full object-cover transition-transform duration-500;
+  }
+
+  .menu-card:hover .menu-card-image img {
+    @apply scale-110;
+  }
+
+  .menu-card-overlay {
+    @apply absolute inset-0 bg-gradient-to-t from-black/60 via-transparent 
+           opacity-0 transition-opacity duration-300 
+           flex items-end justify-center pb-4;
+  }
+
+  .menu-card:hover .menu-card-overlay {
+    @apply opacity-100;
+  }
+
+  /* Scrollbar */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Status badges for orders */
+  .status-placed { @apply bg-blue-100 text-blue-800; }
+  .status-confirmed { @apply bg-indigo-100 text-indigo-800; }
+  .status-preparing { @apply bg-yellow-100 text-yellow-800; }
+  .status-out { @apply bg-orange-100 text-orange-800; }
+  .status-delivered { @apply bg-green-100 text-green-800; }
+  .status-cancelled { @apply bg-red-100 text-red-800; }
+}
+
+/* ── Utility Styles ── */
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r 
+           from-primary-500 to-caramel;
+  }
+
+  .text-shadow {
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+}
+
+/* ── Animations ── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Carousel */
+.carousel-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  animation: marquee 20s linear infinite;
+}
+
+.carousel-track:hover {
+  animation-play-state: paused;
+}
+
+/* Pull to refresh */
+.pull-indicator {
+  transition: transform 0.2s ease;
+}
+
+/* Toast customization */
+.toast-custom {
+  font-family: 'Inter', sans-serif !important;
+}
