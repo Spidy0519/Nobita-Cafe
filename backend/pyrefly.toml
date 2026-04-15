@@ -1,0 +1,4 @@
+[pyrefly]
+python_platform = "Windows"
+search_path = ["."]
+site_package_path_from_interpreter = "venv/Scripts/python.exe"

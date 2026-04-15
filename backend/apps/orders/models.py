@@ -1,4 +1,11 @@
 """
+<<<<<<< HEAD
+Nobita Café — Order Models
+
+No database models needed. All order data is stored in Google Sheets
+via apps/orders/sheets.py.
+"""
+=======
 Nobita Café — Order Models (Order, OrderItem)
 """
 import uuid
@@ -91,3 +98,4 @@ class OrderItem(models.Model):
     @property
     def subtotal(self):
         return self.quantity * self.unit_price
+>>>>>>> 178d01e442bbda69ef0d6c6717f311b94abb02a9

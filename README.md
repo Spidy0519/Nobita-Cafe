@@ -1,3 +1,152 @@
+<<<<<<< HEAD
+# Nobita Cafe
+
+Nobita Cafe is a full-stack food ordering app with:
+
+- Customer pages (Landing, Menu, Cart)
+- Admin dashboard for order operations and analytics
+- Django backend APIs with Google Sheets as the order datastore
+
+## Current Stack
+
+Frontend:
+
+- React + Vite
+- Tailwind CSS
+- Axios
+- Zustand
+
+Backend:
+
+- Django 4.2
+- Django REST Framework
+- gspread + Google service account
+- SQLite for Django internals
+
+## Routes
+
+Frontend routes:
+
+- / -> Landing page
+- /app -> Menu page
+- /cart -> Checkout page
+- /admin -> Admin dashboard
+
+Backend API routes:
+
+- /api/place-order/
+- /api/orders/
+- /api/update-status/
+- /api/add-complaint/
+- /api/generate-bill/<row_index>/
+- /api/menu/categories/
+- /api/menu/items/
+- /api/menu/banners/
+- /api/menu/upload-image/
+- /api/menu/bulk-import/
+
+## Local Setup
+
+### 1) Backend
+
+```bash
+cd backend
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements/base.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+Create backend/.env with at least:
+
+```env
+SECRET_KEY=change-me
+DEBUG=True
+DJANGO_ENV=dev
+ALLOWED_HOSTS=localhost,127.0.0.1
+CORS_ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+
+GOOGLE_SHEET_ID=your_google_sheet_id
+
+# Preferred for deployment: full JSON in one env var
+GOOGLE_CREDENTIALS_JSON={"type":"service_account",...}
+
+# Optional local fallback (file path)
+# GOOGLE_CREDENTIALS_FILE=backend/credentials.json
+```
+
+### 2) Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Create frontend/.env:
+
+```env
+VITE_API_BASE_URL=http://localhost:8000/api
+VITE_API_BASE_URL_PROD=https://nobita-cafe.onrender.com/api
+```
+
+## Deployment (Render + Vercel)
+
+### Backend on Render
+
+Service settings:
+
+- Root directory: backend
+- Build command: pip install -r requirements/prod.txt && python manage.py migrate
+- Start command: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
+
+Required env vars on Render:
+
+- SECRET_KEY
+- DEBUG=False
+- DJANGO_ENV=prod
+- ALLOWED_HOSTS=nobita-cafe.onrender.com
+- CORS_ALLOWED_ORIGINS=https://nobita-cafe.vercel.app
+- GOOGLE_SHEET_ID
+- GOOGLE_CREDENTIALS_JSON
+
+### Frontend on Vercel
+
+Project settings:
+
+- Root directory: frontend
+- Build command: npm run build
+- Output directory: dist
+
+Required env vars on Vercel:
+
+- VITE_API_BASE_URL_PROD=https://nobita-cafe.onrender.com/api
+
+## Security Update (Important)
+
+Google service account credentials must never be committed.
+
+What is now in place:
+
+- backend/credentials.json is ignored
+- backend/.env and frontend/.env are ignored
+- backend/credentials.example.json is provided as a safe template
+- Backend supports GOOGLE_CREDENTIALS_JSON so secrets can be stored in hosting env vars
+
+If credentials were exposed earlier:
+
+1. Revoke the old service-account key in Google Cloud immediately.
+2. Create a new key.
+3. Update GOOGLE_CREDENTIALS_JSON in Render.
+4. Verify Google Sheet sharing permissions.
+
+## Notes
+
+- Admin dashboard uses order data from Google Sheets.
+- Image uploads are served from Django media storage in current code.
+- For production reliability, avoid storing secrets in files inside the repository.
+=======
 # ☕ Nobita Café — Full-Stack Ordering Platform
 
 A premium, full-stack café ordering system featuring three distinct portals: a Customer App, an Admin Dashboard, and a Delivery Staff App. Built with modern web technologies including React (Vite), Tailwind CSS, Django REST Framework, and Django Channels (WebSockets) for real-time reactivity.
@@ -142,3 +291,4 @@ The backend is set up for production using Docker and Daphne.
 ---
 
 *Built with ❤️ for Nobita Café.*
+>>>>>>> 178d01e442bbda69ef0d6c6717f311b94abb02a9

@@ -1,0 +1,490 @@
+[
+  {
+    "name": "Masala Chai",
+    "category": "Tea Shop",
+    "price": 20,
+    "image": "https://via.placeholder.com/400x300?text=Masala+Chai",
+    "available": true,
+    "description": "Traditional Indian spiced tea"
+  },
+  {
+    "name": "Ginger Lemon Tea",
+    "category": "Tea Shop",
+    "price": 15,
+    "image": "https://via.placeholder.com/400x300?text=Ginger+Lemon+Tea",
+    "available": true,
+    "description": "Refreshing ginger and lemon tea"
+  },
+  {
+    "name": "Black Tea",
+    "category": "Tea Shop",
+    "price": 10,
+    "image": "https://via.placeholder.com/400x300?text=Black+Tea",
+    "available": true,
+    "description": "Pure black tea"
+  },
+  {
+    "name": "Samosa",
+    "category": "Veg Bites",
+    "price": 25,
+    "image": "https://via.placeholder.com/400x300?text=Samosa",
+    "available": true,
+    "description": "Crispy fried pastry with potato filling"
+  },
+  {
+    "name": "Pakora",
+    "category": "Veg Bites",
+    "price": 30,
+    "image": "https://via.placeholder.com/400x300?text=Pakora",
+    "available": true,
+    "description": "Crispy vegetable fritters"
+  },
+  {
+    "name": "Chikhalwali",
+    "category": "Veg Bites",
+    "price": 35,
+    "image": "https://via.placeholder.com/400x300?text=Chikhalwali",
+    "available": true
+  },
+  {
+    "name": "Chicken 65",
+    "category": "Non-Veg Bites",
+    "price": 120,
+    "image": "https://via.placeholder.com/400x300?text=Chicken+65",
+    "available": true,
+    "description": "Spicy fried chicken cubes"
+  },
+  {
+    "name": "Tandoori Chicken",
+    "category": "Non-Veg Bites",
+    "price": 150,
+    "image": "https://via.placeholder.com/400x300?text=Tandoori+Chicken",
+    "available": true,
+    "description": "Grilled tandoori chicken"
+  },
+  {
+    "name": "Lime Chicken",
+    "category": "Non-Veg Bites",
+    "price": 100,
+    "image": "https://via.placeholder.com/400x300?text=Lime+Chicken",
+    "available": true
+  },
+  {
+    "name": "Crispy Fried Chicken",
+    "category": "Fried Chicken",
+    "price": 180,
+    "image": "https://via.placeholder.com/400x300?text=Fried+Chicken",
+    "available": true,
+    "description": "Crispy and juicy fried chicken"
+  },
+  {
+    "name": "Chicken Tenders",
+    "category": "Fried Chicken",
+    "price": 160,
+    "image": "https://via.placeholder.com/400x300?text=Chicken+Tenders",
+    "available": true
+  },
+  {
+    "name": "Spicy Fried Chicken",
+    "category": "Fried Chicken",
+    "price": 190,
+    "image": "https://via.placeholder.com/400x300?text=Spicy+Fried+Chicken",
+    "available": true
+  },
+  {
+    "name": "French Fries",
+    "category": "French Fries",
+    "price": 50,
+    "image": "https://via.placeholder.com/400x300?text=French+Fries",
+    "available": true,
+    "description": "Crispy golden fries"
+  },
+  {
+    "name": "Cheesy Fries",
+    "category": "French Fries",
+    "price": 80,
+    "image": "https://via.placeholder.com/400x300?text=Cheesy+Fries",
+    "available": true,
+    "description": "Fries topped with melted cheese"
+  },
+  {
+    "name": "Spicy Fries",
+    "category": "French Fries",
+    "price": 60,
+    "image": "https://via.placeholder.com/400x300?text=Spicy+Fries",
+    "available": true
+  },
+  {
+    "name": "Chicken Shawarma",
+    "category": "Shawarma",
+    "price": 80,
+    "image": "https://via.placeholder.com/400x300?text=Chicken+Shawarma",
+    "available": true,
+    "description": "Middle Eastern spiced chicken wrap"
+  },
+  {
+    "name": "Mutton Shawarma",
+    "category": "Shawarma",
+    "price": 100,
+    "image": "https://via.placeholder.com/400x300?text=Mutton+Shawarma",
+    "available": true
+  },
+  {
+    "name": "Veg Shawarma",
+    "category": "Shawarma",
+    "price": 70,
+    "image": "https://via.placeholder.com/400x300?text=Veg+Shawarma",
+    "available": true
+  },
+  {
+    "name": "Classic Burger",
+    "category": "Burger",
+    "price": 120,
+    "image": "https://via.placeholder.com/400x300?text=Classic+Burger",
+    "available": true,
+    "description": "Juicy beef burger with fresh veggies"
+  },
+  {
+    "name": "Cheese Burger",
+    "category": "Burger",
+    "price": 140,
+    "image": "https://via.placeholder.com/400x300?text=Cheese+Burger",
+    "available": true
+  },
+  {
+    "name": "Chicken Burger",
+    "category": "Burger",
+    "price": 130,
+    "image": "https://via.placeholder.com/400x300?text=Chicken+Burger",
+    "available": true
+  },
+  {
+    "name": "Veg Sandwich",
+    "category": "Sandwich",
+    "price": 60,
+    "image": "https://via.placeholder.com/400x300?text=Veg+Sandwich",
+    "available": true,
+    "description": "Fresh vegetable sandwich"
+  },
+  {
+    "name": "Chicken Sandwich",
+    "category": "Sandwich",
+    "price": 80,
+    "image": "https://via.placeholder.com/400x300?text=Chicken+Sandwich",
+    "available": true
+  },
+  {
+    "name": "Grilled Sandwich",
+    "category": "Sandwich",
+    "price": 90,
+    "image": "https://via.placeholder.com/400x300?text=Grilled+Sandwich",
+    "available": true
+  },
+  {
+    "name": "Margherita Pizza",
+    "category": "Pizza",
+    "price": 200,
+    "image": "https://via.placeholder.com/400x300?text=Margherita+Pizza",
+    "available": true,
+    "description": "Classic pizza with basil and mozzarella"
+  },
+  {
+    "name": "Pepperoni Pizza",
+    "category": "Pizza",
+    "price": 250,
+    "image": "https://via.placeholder.com/400x300?text=Pepperoni+Pizza",
+    "available": true
+  },
+  {
+    "name": "Veggie Pizza",
+    "category": "Pizza",
+    "price": 220,
+    "image": "https://via.placeholder.com/400x300?text=Veggie+Pizza",
+    "available": true
+  },
+  {
+    "name": "Cup Pizza",
+    "category": "Cup Pizza",
+    "price": 80,
+    "image": "https://via.placeholder.com/400x300?text=Cup+Pizza",
+    "available": true,
+    "description": "Individual pizza in a cup"
+  },
+  {
+    "name": "Spicy Italian Pasta",
+    "category": "Pasta",
+    "price": 150,
+    "image": "https://via.placeholder.com/400x300?text=Spicy+Italian+Pasta",
+    "available": true,
+    "description": "Al dente pasta with Italian spices"
+  },
+  {
+    "name": "Creamy Pasta",
+    "category": "Pasta",
+    "price": 160,
+    "image": "https://via.placeholder.com/400x300?text=Creamy+Pasta",
+    "available": true
+  },
+  {
+    "name": "Butter Garlic Pasta",
+    "category": "Pasta",
+    "price": 140,
+    "image": "https://via.placeholder.com/400x300?text=Butter+Garlic+Pasta",
+    "available": true
+  },
+  {
+    "name": "Maggie Noodles",
+    "category": "Maggie",
+    "price": 40,
+    "image": "https://via.placeholder.com/400x300?text=Maggie+Noodles",
+    "available": true,
+    "description": "Quick and easy noodles"
+  },
+  {
+    "name": "Veggie Maggie",
+    "category": "Maggie",
+    "price": 50,
+    "image": "https://via.placeholder.com/400x300?text=Veggie+Maggie",
+    "available": true
+  },
+  {
+    "name": "Chicken Momos",
+    "category": "Momos",
+    "price": 70,
+    "image": "https://via.placeholder.com/400x300?text=Chicken+Momos",
+    "available": true,
+    "description": "Steamed chicken dumplings"
+  },
+  {
+    "name": "Veg Momos",
+    "category": "Momos",
+    "price": 60,
+    "image": "https://via.placeholder.com/400x300?text=Veg+Momos",
+    "available": true
+  },
+  {
+    "name": "Chicken Fried Rice",
+    "category": "Fried Rice",
+    "price": 100,
+    "image": "https://via.placeholder.com/400x300?text=Chicken+Fried+Rice",
+    "available": true,
+    "description": "Stir-fried rice with chicken"
+  },
+  {
+    "name": "Vegetable Fried Rice",
+    "category": "Fried Rice",
+    "price": 90,
+    "image": "https://via.placeholder.com/400x300?text=Veg+Fried+Rice",
+    "available": true
+  },
+  {
+    "name": "Egg Fried Rice",
+    "category": "Fried Rice",
+    "price": 80,
+    "image": "https://via.placeholder.com/400x300?text=Egg+Fried+Rice",
+    "available": true
+  },
+  {
+    "name": "Chicken Noodles",
+    "category": "Noodles",
+    "price": 110,
+    "image": "https://via.placeholder.com/400x300?text=Chicken+Noodles",
+    "available": true,
+    "description": "Stir-fried noodles with chicken"
+  },
+  {
+    "name": "Vegetable Noodles",
+    "category": "Noodles",
+    "price": 100,
+    "image": "https://via.placeholder.com/400x300?text=Veg+Noodles",
+    "available": true
+  },
+  {
+    "name": "Prawn Manchurian",
+    "category": "Manchurian",
+    "price": 150,
+    "image": "https://via.placeholder.com/400x300?text=Prawn+Manchurian",
+    "available": true,
+    "description": "Indo-Chinese prawn dish"
+  },
+  {
+    "name": "Vegetable Manchurian",
+    "category": "Manchurian",
+    "price": 80,
+    "image": "https://via.placeholder.com/400x300?text=Veg+Manchurian",
+    "available": true
+  },
+  {
+    "name": "Hot Pepper Chicken",
+    "category": "Hot Pepper",
+    "price": 140,
+    "image": "https://via.placeholder.com/400x300?text=Hot+Pepper+Chicken",
+    "available": true,
+    "description": "Extremely spicy fried chicken"
+  },
+  {
+    "name": "Kunafa",
+    "category": "Kunafa",
+    "price": 60,
+    "image": "https://via.placeholder.com/400x300?text=Kunafa",
+    "available": true,
+    "description": "Middle Eastern pastry with nuts"
+  },
+  {
+    "name": "Belgian Waffle",
+    "category": "Waffles",
+    "price": 100,
+    "image": "https://via.placeholder.com/400x300?text=Belgian+Waffle",
+    "available": true,
+    "description": "Crispy golden waffle"
+  },
+  {
+    "name": "Chocolate Waffle",
+    "category": "Waffles",
+    "price": 120,
+    "image": "https://via.placeholder.com/400x300?text=Chocolate+Waffle",
+    "available": true
+  },
+  {
+    "name": "Cheesecake",
+    "category": "Desserts",
+    "price": 150,
+    "image": "https://via.placeholder.com/400x300?text=Cheesecake",
+    "available": true,
+    "description": "Rich and creamy cheesecake"
+  },
+  {
+    "name": "Chocolate Brownies",
+    "category": "Desserts",
+    "price": 80,
+    "image": "https://via.placeholder.com/400x300?text=Chocolate+Brownies",
+    "available": true
+  },
+  {
+    "name": "Vanilla Ice Cream",
+    "category": "Ice Cream",
+    "price": 60,
+    "image": "https://via.placeholder.com/400x300?text=Vanilla+Ice+Cream",
+    "available": true,
+    "description": "Classic vanilla flavour"
+  },
+  {
+    "name": "Chocolate Ice Cream",
+    "category": "Ice Cream",
+    "price": 60,
+    "image": "https://via.placeholder.com/400x300?text=Chocolate+Ice+Cream",
+    "available": true
+  },
+  {
+    "name": "Mango Ice Cream",
+    "category": "Ice Cream",
+    "price": 70,
+    "image": "https://via.placeholder.com/400x300?text=Mango+Ice+Cream",
+    "available": true
+  },
+  {
+    "name": "Strawberry Milkshake",
+    "category": "Milkshake",
+    "price": 80,
+    "image": "https://via.placeholder.com/400x300?text=Strawberry+Milkshake",
+    "available": true,
+    "description": "Fresh strawberry milkshake"
+  },
+  {
+    "name": "Chocolate Milkshake",
+    "category": "Milkshake",
+    "price": 80,
+    "image": "https://via.placeholder.com/400x300?text=Chocolate+Milkshake",
+    "available": true
+  },
+  {
+    "name": "Banana Milkshake",
+    "category": "Milkshake",
+    "price": 70,
+    "image": "https://via.placeholder.com/400x300?text=Banana+Milkshake",
+    "available": true
+  },
+  {
+    "name": "Classic Bubble Tea",
+    "category": "Bubble Tea",
+    "price": 100,
+    "image": "https://via.placeholder.com/400x300?text=Bubble+Tea",
+    "available": true,
+    "description": "Refreshing bubble tea with boba"
+  },
+  {
+    "name": "Mango Bubble Tea",
+    "category": "Bubble Tea",
+    "price": 110,
+    "image": "https://via.placeholder.com/400x300?text=Mango+Bubble+Tea",
+    "available": true
+  },
+  {
+    "name": "Iced Bubble Coffee",
+    "category": "Bubble Coffee",
+    "price": 120,
+    "image": "https://via.placeholder.com/400x300?text=Bubble+Coffee",
+    "available": true,
+    "description": "Cold coffee with boba pearls"
+  },
+  {
+    "name": "Iced Lemon",
+    "category": "Cold Items",
+    "price": 40,
+    "image": "https://via.placeholder.com/400x300?text=Iced+Lemon",
+    "available": true,
+    "description": "Refreshing iced lemon drink"
+  },
+  {
+    "name": "Iced Tea",
+    "category": "Cold Items",
+    "price": 50,
+    "image": "https://via.placeholder.com/400x300?text=Iced+Tea",
+    "available": true
+  },
+  {
+    "name": "Falooda",
+    "category": "Falooda",
+    "price": 90,
+    "image": "https://via.placeholder.com/400x300?text=Falooda",
+    "available": true,
+    "description": "Traditional Indian dessert drink"
+  },
+  {
+    "name": "Orange Juice",
+    "category": "Fresh Juice",
+    "price": 60,
+    "image": "https://via.placeholder.com/400x300?text=Orange+Juice",
+    "available": true,
+    "description": "Fresh squeezed orange juice"
+  },
+  {
+    "name": "Mango Juice",
+    "category": "Fresh Juice",
+    "price": 70,
+    "image": "https://via.placeholder.com/400x300?text=Mango+Juice",
+    "available": true
+  },
+  {
+    "name": "Apple Juice",
+    "category": "Fresh Juice",
+    "price": 60,
+    "image": "https://via.placeholder.com/400x300?text=Apple+Juice",
+    "available": true
+  },
+  {
+    "name": "Mint Mojito",
+    "category": "Mojito",
+    "price": 80,
+    "image": "https://via.placeholder.com/400x300?text=Mint+Mojito",
+    "available": true,
+    "description": "Refreshing minty mojito"
+  },
+  {
+    "name": "Passion Fruit Mojito",
+    "category": "Mojito",
+    "price": 90,
+    "image": "https://via.placeholder.com/400x300?text=Passion+Fruit+Mojito",
+    "available": true
+  }
+]

@@ -1,4 +1,26 @@
 """
+<<<<<<< HEAD
+Nobita Café — Base Settings (Simplified — Google Sheets backend)
+"""
+
+import os
+from pathlib import Path
+from dotenv import load_dotenv
+
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# Always load backend/.env explicitly (independent of current working directory),
+# but never override environment variables already provided by hosting platforms.
+load_dotenv(BASE_DIR / ".env", override=False)
+
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-change-me-in-production")
+
+DEBUG = os.environ.get("DEBUG", "True").lower() in ("true", "1", "yes")
+
+ALLOWED_HOSTS = [
+    h.strip() for h in os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
+]
+=======
 Nobita Café — Base Settings
 """
 import os
@@ -15,12 +37,52 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-me-in-producti
 DEBUG = os.environ.get('DEBUG', 'True').lower() in ('true', '1', 'yes')
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+>>>>>>> 178d01e442bbda69ef0d6c6717f311b94abb02a9
 
 # ──────────────────────────────────────────────
 # Application definition
 # ──────────────────────────────────────────────
 
 INSTALLED_APPS = [
+<<<<<<< HEAD
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    # Third party
+    "corsheaders",
+    # Local apps
+    "apps.menu",
+    "apps.orders",
+]
+
+MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+ROOT_URLCONF = "config.urls"
+
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+=======
     'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -69,11 +131,26 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+>>>>>>> 178d01e442bbda69ef0d6c6717f311b94abb02a9
             ],
         },
     },
 ]
 
+<<<<<<< HEAD
+WSGI_APPLICATION = "config.wsgi.application"
+
+# ──────────────────────────────────────────────
+# Database — SQLite (minimal, only for Django internals)
+# We use Google Sheets for order data, but Django
+# still needs a DB for admin/auth/sessions tables.
+# ──────────────────────────────────────────────
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+=======
 WSGI_APPLICATION = 'config.wsgi.application'
 ASGI_APPLICATION = 'config.asgi.application'
 
@@ -125,10 +202,18 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
         'LOCATION': REDIS_URL,
+>>>>>>> 178d01e442bbda69ef0d6c6717f311b94abb02a9
     }
 }
 
 # ──────────────────────────────────────────────
+<<<<<<< HEAD
+# Internationalization
+# ──────────────────────────────────────────────
+
+LANGUAGE_CODE = "en-us"
+TIME_ZONE = "Asia/Kolkata"
+=======
 # Password validation
 # ──────────────────────────────────────────────
 
@@ -145,6 +230,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'Asia/Kolkata'
+>>>>>>> 178d01e442bbda69ef0d6c6717f311b94abb02a9
 USE_I18N = True
 USE_TZ = True
 
@@ -152,6 +238,15 @@ USE_TZ = True
 # Static files
 # ──────────────────────────────────────────────
 
+<<<<<<< HEAD
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+=======
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -189,11 +284,26 @@ SIMPLE_JWT = {
     'USER_ID_FIELD': 'id',
     'USER_ID_CLAIM': 'user_id',
 }
+>>>>>>> 178d01e442bbda69ef0d6c6717f311b94abb02a9
 
 # ──────────────────────────────────────────────
 # CORS
 # ──────────────────────────────────────────────
 
+<<<<<<< HEAD
+CORS_ALLOWED_ORIGINS = [
+    o.strip()
+    for o in os.environ.get(
+        "CORS_ALLOWED_ORIGINS",
+        "http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174,http://localhost:3000,http://127.0.0.1:3000",
+    ).split(",")
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+=======
 CORS_ALLOWED_ORIGINS = os.environ.get(
     'CORS_ALLOWED_ORIGINS',
     'http://localhost:5173,http://localhost:3000'
@@ -230,3 +340,4 @@ cloudinary.config(
 # OTP Settings
 OTP_LENGTH = 6
 OTP_EXPIRY_SECONDS = 300  # 5 minutes
+>>>>>>> 178d01e442bbda69ef0d6c6717f311b94abb02a9
