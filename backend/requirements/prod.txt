@@ -1,3 +1,2 @@
 -r base.txt
-daphne==4.1.*
 sentry-sdk==1.39.*

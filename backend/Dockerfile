@@ -21,5 +21,5 @@ COPY . .
 # Collect static
 RUN python manage.py collectstatic --noinput || true
 
-# Run with Daphne (ASGI for WebSocket support)
-CMD ["daphne", "-b", "0.0.0.0", "-p", "8000", "config.asgi:application"]
+# Run with Gunicorn (standard web server for this app)
+CMD ["gunicorn", "config.wsgi:application", "--bind", "0.0.0.0:8000"]
