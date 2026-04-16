@@ -4,17 +4,29 @@
 import { Link } from 'react-router-dom'
 import Navbar from '@/components/Navbar'
 import { GALLERY } from '@/data/galleryData'
+import { MENU_ITEMS } from '@/data/menuData'
 
 // Assets
 import heroBg from '@/assets/hero/bg (7).jpeg'
-import shopFront from '@/assets/shop/IMG_20260324_122035.jpg.jpeg'
-import shopInside from '@/assets/shop/IMG_20260324_122039.jpg.jpeg'
+import shopFront from '@/assets/shop/IMG_20260324_122103.jpg.jpeg'
+import shopInside from '@/assets/shop/IMG_20260324_122110.jpg.jpeg'
+
+const WHATSAPP_ORDER_MESSAGE = [
+  'Hi Nobita Cafe, I want to place an order.',
+  '',
+  'Available food items:',
+  ...MENU_ITEMS.map((item, index) => `${index + 1}. ${item.name} - Rs.${item.price}`),
+  '',
+  'Please reply with availability and confirm my order.',
+].join('\n')
+
+const WHATSAPP_ORDER_LINK = `https://wa.me/918489401699?text=${encodeURIComponent(WHATSAPP_ORDER_MESSAGE)}`
 
 const FEATURES = [
   { icon: '🛵', title: 'Fast Delivery', desc: '30 min or free' },
   { icon: '☕', title: 'Premium Quality', desc: '100% Arabica beans' },
   { icon: '🏪', title: 'Pickup Ready', desc: 'Skip the queue' },
-  { icon: '💳', title: 'UPI & Cards', desc: 'All payments accepted' },
+  { icon: '💵', title: 'Cash on Delivery', desc: 'Pay when your order arrives' },
 ]
 
 export default function Landing() {
@@ -73,6 +85,17 @@ export default function Landing() {
                 <span>⭐</span> Leave a Review
               </a>
             </div>
+
+            <a
+              href={WHATSAPP_ORDER_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-5 bg-[#25D366] text-white hover:bg-[#1ebe5d] 
+                         px-5 py-3 rounded-xl font-semibold text-sm shadow-lg transition-colors"
+              id="cta-whatsapp-order"
+            >
+              <span>💬</span> WhatsApp Order Available
+            </a>
           </div>
 
           {/* Scroll indicator */}
@@ -120,7 +143,7 @@ export default function Landing() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 auto-rows-[200px] sm:auto-rows-[250px]">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 auto-rows-[200px] sm:auto-rows-[250px] items-stretch">
             {GALLERY.map((item, idx) => (
               <div
                 key={idx}
@@ -182,6 +205,16 @@ export default function Landing() {
                   Nobita cafe, Mangalam Rd, Vaniga Vallagam,<br />
                   Karuvampalayam, Tiruppur, Tamil Nadu 641604
                 </p>
+                <a
+                  href={WHATSAPP_ORDER_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-green-100 text-green-700 hover:bg-green-200 
+                             px-4 py-2 rounded-xl text-sm font-medium transition-colors mb-3"
+                >
+                  💬 WhatsApp Order Available
+                </a>
+                <br />
                 <a
                   href="https://maps.google.com/?q=11.0989288,77.3415407"
                   target="_blank"
@@ -245,15 +278,14 @@ export default function Landing() {
               <h4 className="font-semibold mb-3">Quick Links</h4>
               <div className="space-y-2">
                 <Link to="/app" className="block text-white/60 hover:text-primary-400 transition-colors text-sm">Menu</Link>
-                <Link to="/orders" className="block text-white/60 hover:text-primary-400 transition-colors text-sm">Orders</Link>
-                <Link to="/profile" className="block text-white/60 hover:text-primary-400 transition-colors text-sm">Profile</Link>
+                <Link to="/cart" className="block text-white/60 hover:text-primary-400 transition-colors text-sm">Cart</Link>
               </div>
             </div>
             <div>
               <h4 className="font-semibold mb-3">Contact</h4>
               <div className="space-y-2 text-white/60 text-sm">
-                <p>📞 +91 98765 43210</p>
-                <p>✉️ hello@nobitacafe.in</p>
+                <p>📞 +91 84894 01699</p>
+                <p>✉️ nobitacafe.feedback@gmail.com</p>
                 <a 
                   href="https://maps.google.com/?q=11.0989288,77.3415407" 
                   target="_blank" 

@@ -10,6 +10,7 @@ POST /api/add-complaint/    → Add complaint to order
 import json
 import logging
 from datetime import datetime
+from urllib.parse import quote_plus
 
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
@@ -20,6 +21,75 @@ from .bill import generate_bill_pdf
 from .sheets import add_complaint, append_order, fetch_all_orders, update_order_status
 
 logger = logging.getLogger(__name__)
+
+
+SHEET_TO_ADMIN_STATUS = {
+    "pending": "PLACED",
+    "confirmed": "CONFIRMED",
+    "preparing": "PREPARING",
+    "picked": "OUT_FOR_DELIVERY",
+    "out_for_delivery": "OUT_FOR_DELIVERY",
+    "completed": "DELIVERED",
+    "delivered": "DELIVERED",
+    "cancelled": "CANCELLED",
+}
+
+ADMIN_TO_SHEET_STATUS = {
+    "PLACED": "Pending",
+    "CONFIRMED": "Confirmed",
+    "PREPARING": "Preparing",
+    "OUT_FOR_DELIVERY": "Picked",
+    "DELIVERED": "Completed",
+    "CANCELLED": "Cancelled",
+}
+
+
+def _map_sheet_status_to_admin(status_value):
+    key = (status_value or "Pending").strip().lower().replace(" ", "_")
+    return SHEET_TO_ADMIN_STATUS.get(key, "PLACED")
+
+
+def _map_admin_status_to_sheet(status_value):
+    status = (status_value or "").strip().upper()
+    return ADMIN_TO_SHEET_STATUS.get(status, status_value)
+
+
+def _parse_item_count(food_value):
+    if not food_value:
+        return 0
+    return food_value.count("(x") if "(x" in food_value else len(food_value.split(","))
+
+
+def _payment_type(value):
+    text = (value or "").strip().lower()
+    if "cash" in text:
+        return "CASH"
+    if "upi" in text:
+        return "UPI"
+    if "card" in text:
+        return "CARD"
+    return "CASH"
+
+
+def _to_admin_order(sheet_order):
+    status = _map_sheet_status_to_admin(sheet_order.get("Status", "Pending"))
+    payment_type = _payment_type(sheet_order.get("Payment", "Cash on Delivery"))
+    return {
+        "id": str(sheet_order.get("_row")),
+        "status": status,
+        "payment_type": payment_type,
+        "payment_status": "PENDING" if payment_type == "CASH" else "PAID",
+        "item_count": _parse_item_count(sheet_order.get("Food", "")),
+        "total": 0,
+        "grand_total": 0,
+        "customer_name": sheet_order.get("Name", ""),
+        "phone": sheet_order.get("Phone", ""),
+        "address": sheet_order.get("Address", ""),
+        "map_link": sheet_order.get("Map Link", ""),
+        "food": sheet_order.get("Food", ""),
+        "created_at": sheet_order.get("Timestamp", ""),
+        "_row": sheet_order.get("_row"),
+    }
 
 
 @method_decorator(csrf_exempt, name="dispatch")
@@ -38,7 +108,7 @@ class PlaceOrderView(View):
         phone = data.get("phone", "").strip()
         address = data.get("address", "").strip()
         map_link = data.get("map_link", "").strip()
-        payment = data.get("payment", "Cash on Delivery").strip()
+        payment = "Cash on Delivery"
         food_items = data.get("food_items") or data.get("items", [])
 
         errors = []
@@ -63,6 +133,12 @@ class PlaceOrderView(View):
             food_str = str(food_items)
 
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+        if not map_link and address:
+            map_link = (
+                "https://www.google.com/maps/search/?api=1&query="
+                f"{quote_plus(address)}"
+            )
 
         try:
             append_order(timestamp, name, phone, food_str, address, map_link, payment)
@@ -111,6 +187,61 @@ class OrderListView(View):
 
 
 @method_decorator(csrf_exempt, name="dispatch")
+class AdminOrderListView(View):
+    """GET /api/admin/orders/ compatible response for admin dashboard."""
+
+    def get(self, request):
+        try:
+            orders = fetch_all_orders()
+            admin_orders = [_to_admin_order(order) for order in orders]
+            admin_orders.reverse()  # Show newest first
+            return JsonResponse(admin_orders, safe=False, status=200)
+        except FileNotFoundError as exc:
+            return JsonResponse({"success": False, "error": str(exc)}, status=500)
+        except Exception as exc:
+            logger.error(f"Admin fetch orders error: {exc}")
+            return JsonResponse(
+                {"success": False, "error": "Failed to fetch admin orders"},
+                status=500,
+            )
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+class AdminOrderStatusView(View):
+    """PATCH /api/admin/orders/<row_id>/status/"""
+
+    def patch(self, request, row_id):
+        try:
+            data = json.loads(request.body or "{}")
+        except json.JSONDecodeError:
+            return JsonResponse({"success": False, "error": "Invalid JSON"}, status=400)
+
+        requested_status = data.get("status", "").strip()
+        if not requested_status:
+            return JsonResponse(
+                {"success": False, "error": "status is required"}, status=400
+            )
+
+        sheet_status = _map_admin_status_to_sheet(requested_status)
+
+        try:
+            update_order_status(int(row_id), sheet_status)
+            return JsonResponse(
+                {
+                    "success": True,
+                    "message": f"Order updated to {requested_status}",
+                    "order_id": str(row_id),
+                    "status": requested_status,
+                }
+            )
+        except Exception as exc:
+            logger.error(f"Admin update status error: {exc}")
+            return JsonResponse(
+                {"success": False, "error": "Failed to update status"}, status=500
+            )
+
+
+@method_decorator(csrf_exempt, name="dispatch")
 class UpdateStatusView(View):
     """
     POST /api/update-status/
@@ -131,7 +262,20 @@ class UpdateStatusView(View):
                 {"success": False, "error": "row and status are required"}, status=400
             )
 
-        valid_statuses = ["Pending", "Picked", "Completed", "Cancelled"]
+        valid_statuses = [
+            "Pending",
+            "Confirmed",
+            "Preparing",
+            "Picked",
+            "Completed",
+            "Cancelled",
+            "PLACED",
+            "CONFIRMED",
+            "PREPARING",
+            "OUT_FOR_DELIVERY",
+            "DELIVERED",
+            "CANCELLED",
+        ]
         if status_val not in valid_statuses:
             return JsonResponse(
                 {
@@ -142,7 +286,7 @@ class UpdateStatusView(View):
             )
 
         try:
-            update_order_status(int(row), status_val)
+            update_order_status(int(row), _map_admin_status_to_sheet(status_val))
             return JsonResponse(
                 {"success": True, "message": f"Status updated to {status_val}"}
             )

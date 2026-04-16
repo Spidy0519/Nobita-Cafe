@@ -40,7 +40,7 @@ export default function Home() {
       <div className="h-16" />
 
       {/* Search Bar */}
-      <div className="container-custom pt-4 pb-2">
+      <div className="container-custom pt-3 sm:pt-4 pb-2">
         <div className="relative">
           <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg">
             🔍
@@ -50,7 +50,7 @@ export default function Home() {
             placeholder="Search menu..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="input-field pl-12 py-3.5 rounded-2xl shadow-sm border-primary-100 
+            className="input-field pl-11 sm:pl-12 py-3 sm:py-3.5 rounded-2xl shadow-sm border-primary-100 
                        focus:shadow-md transition-shadow"
             id="menu-search"
           />
@@ -78,9 +78,9 @@ export default function Home() {
       />
 
       {/* Menu Grid */}
-      <div className="container-custom py-6">
+      <div className="container-custom py-5 sm:py-6">
         {/* Results count */}
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between gap-3 mb-4">
           <p className="text-sm text-gray-500">
             {filteredItems.length} item{filteredItems.length !== 1 ? 's' : ''}
             {activeCategory !== 'all' && (

@@ -1,8 +1,8 @@
 """
-Nobita Café — Google Sheets Integration via gspread + oauth2client
+Nobita Cafe — Google Sheets Integration via gspread + oauth2client
 
 Sheet headers (Row 1):
-  Timestamp | Name | Phone | Food | Address | Map Link | Payment | Status | Complaint
+    Timestamp | Name | Phone | Food | Address | Map Link | Payment | Status | Complaint
 """
 
 import os
@@ -35,6 +35,18 @@ COL_PAYMENT = 7
 COL_STATUS = 8
 COL_COMPLAINT = 9
 
+REQUIRED_HEADERS = [
+    "Timestamp",
+    "Name",
+    "Phone",
+    "Food",
+    "Address",
+    "Map Link",
+    "Payment",
+    "Status",
+    "Complaint",
+]
+
 
 def get_sheet():
     """Connect to Google Sheets and return the first worksheet."""
@@ -66,17 +78,12 @@ def get_sheet():
 
 
 def ensure_headers(sheet):
-    """Make sure headers include Status and Complaint columns."""
+    """Make sure header row matches the required schema exactly."""
     headers = sheet.row_values(1)
-    updated = False
-    if len(headers) < COL_STATUS or headers[COL_STATUS - 1] != "Status":
-        sheet.update_cell(1, COL_STATUS, "Status")
-        updated = True
-    if len(headers) < COL_COMPLAINT or headers[COL_COMPLAINT - 1] != "Complaint":
-        sheet.update_cell(1, COL_COMPLAINT, "Complaint")
-        updated = True
-    if updated:
-        logger.info("Updated sheet headers to include Status and Complaint columns")
+    normalized = headers[: len(REQUIRED_HEADERS)]
+    if normalized != REQUIRED_HEADERS:
+        sheet.update("A1:I1", [REQUIRED_HEADERS])
+        logger.info("Updated sheet headers to required schema")
 
 
 def append_order(timestamp, name, phone, food, address, map_link, payment):

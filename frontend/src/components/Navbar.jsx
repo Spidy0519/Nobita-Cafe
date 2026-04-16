@@ -3,7 +3,6 @@
  */
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import useAuthStore from '@/store/authStore'
 import useCartStore from '@/store/cartStore'
 import logo from '@/assets/logo/shop_logo.jpg'
 
@@ -11,7 +10,6 @@ export default function Navbar({ transparent = false }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
-  const { isAuthenticated, user } = useAuthStore()
   const items = useCartStore((s) => s.items)
   const totalItems = items.reduce((sum, i) => sum + i.quantity, 0)
 
@@ -53,7 +51,6 @@ export default function Navbar({ transparent = false }) {
         {/* Desktop Links */}
         <div className="hidden md:flex items-center gap-6">
           <NavLink to="/app" label="Menu" active={location.pathname === '/app'} light={showTransparent} />
-          <NavLink to="/orders" label="Orders" active={location.pathname.startsWith('/orders')} light={showTransparent} />
           
           {/* Cart */}
           <Link
@@ -73,26 +70,6 @@ export default function Navbar({ transparent = false }) {
               </span>
             )}
           </Link>
-
-          {/* Auth */}
-          {isAuthenticated ? (
-            <Link
-              to="/profile"
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300
-                ${showTransparent 
-                  ? 'text-white hover:bg-white/20' 
-                  : 'text-espresso hover:bg-primary-50'
-                }`}
-            >
-              <span className="w-8 h-8 rounded-full bg-primary-500 text-white flex items-center justify-center text-sm font-bold">
-                {user?.name?.[0] || 'U'}
-              </span>
-            </Link>
-          ) : (
-            <Link to="/login" className="btn-primary text-sm py-2 px-5">
-              Login
-            </Link>
-          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -129,13 +106,7 @@ export default function Navbar({ transparent = false }) {
                         animate-slide-up shadow-lg">
           <div className="container-custom py-4 space-y-2">
             <MobileLink to="/app" label="🍽️ Menu" onClick={() => setMenuOpen(false)} />
-            <MobileLink to="/orders" label="📋 Orders" onClick={() => setMenuOpen(false)} />
             <MobileLink to="/cart" label="🛒 Cart" onClick={() => setMenuOpen(false)} />
-            {isAuthenticated ? (
-              <MobileLink to="/profile" label="👤 Profile" onClick={() => setMenuOpen(false)} />
-            ) : (
-              <MobileLink to="/login" label="🔐 Login" onClick={() => setMenuOpen(false)} />
-            )}
           </div>
         </div>
       )}

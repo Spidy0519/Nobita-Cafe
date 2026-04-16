@@ -83,31 +83,31 @@ export default function MenuItemCard({ item }) {
 
       {/* Content */}
       <div className="p-4">
-        <h3 className="font-display text-lg font-semibold text-espresso mb-1 leading-tight">
+        <h3 className="font-display text-base sm:text-lg font-semibold text-espresso mb-1 leading-tight">
           {item.name}
         </h3>
         <p className="text-sm text-gray-500 mb-3 line-clamp-2 leading-relaxed">
           {item.desc}
         </p>
 
-        <div className="flex items-center justify-between">
-          <span className="text-xl font-bold text-primary-600">
+        <div className="flex flex-col gap-3 min-[440px]:flex-row min-[440px]:items-center min-[440px]:justify-between">
+          <span className="text-lg sm:text-xl font-bold text-primary-600">
             ₹{item.price}
           </span>
 
           {/* Mobile add button */}
-          <div className="md:hidden">
+          <div className="md:hidden w-full min-[440px]:w-auto">
             {quantity === 0 ? (
               <button
                 onClick={() => addItem(item)}
-                className="bg-primary-500 text-white px-4 py-2 rounded-xl text-sm 
+                className="w-full min-[440px]:w-auto bg-primary-500 text-white px-4 py-2 rounded-xl text-sm 
                            font-semibold hover:bg-primary-600 transition-all active:scale-95
                            min-h-[44px]"
               >
                 + Add
               </button>
             ) : (
-              <div className="flex items-center gap-2 bg-primary-50 rounded-xl px-2 py-1">
+              <div className="flex items-center justify-between min-[440px]:justify-start gap-2 bg-primary-50 rounded-xl px-2 py-1">
                 <button
                   onClick={() => decrement(item.id)}
                   className="w-9 h-9 rounded-lg bg-white text-primary-700 

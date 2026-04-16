@@ -1,10 +1,9 @@
 """Base settings for Nobita Cafe."""
 
 import os
-from datetime import timedelta
 from pathlib import Path
+from urllib.parse import urlparse
 
-import cloudinary
 from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -24,27 +23,16 @@ ALLOWED_HOSTS = [
 
 # Application definition
 INSTALLED_APPS = [
-    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # Third-party apps
-    "rest_framework",
-    "rest_framework_simplejwt",
+    # Third-party app
     "corsheaders",
-    "channels",
-    "cloudinary",
-    "cloudinary_storage",
-    # Local apps
-    "apps.users",
-    "apps.authentication",
-    "apps.menu",
+    # Local app (Google Sheets orders)
     "apps.orders",
-    "apps.payments",
-    "apps.delivery",
 ]
 
 MIDDLEWARE = [
@@ -80,63 +68,20 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
 
-
-# Custom user model
-AUTH_USER_MODEL = "users.User"
-
-
-# Database
-DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
-
-if DATABASE_URL:
-    import dj_database_url
-
-    try:
-        DATABASES = {"default": dj_database_url.parse(DATABASE_URL)}
-    except ValueError:
-        # Fallback to SQLite if DATABASE_URL is invalid
-        DATABASES = {
-            "default": {
-                "ENGINE": "django.db.backends.sqlite3",
-                "NAME": BASE_DIR / "db.sqlite3",
-            }
-        }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
-        }
+# Local SQLite exists only for Django internals; order data is stored in Google Sheets.
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
+}
 
-
-# Redis and Channels
-REDIS_URL = os.environ.get("REDIS_URL", "")
-
-if REDIS_URL:
-    CHANNEL_LAYERS = {
-        "default": {
-            "BACKEND": "channels_redis.core.RedisChannelLayer",
-            "CONFIG": {
-                "hosts": [REDIS_URL],
-            },
-        }
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+        "LOCATION": "nobita-cafe-cache",
     }
-    CACHES = {
-        "default": {
-            "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": REDIS_URL,
-        }
-    }
-else:
-    # Fallback to in-memory cache and dummy channel layer if Redis is unavailable
-    CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
-    CACHES = {
-        "default": {
-            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-            "LOCATION": "unique-snowflake",
-        }
-    }
+}
 
 
 # Password validation
@@ -168,33 +113,6 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# REST Framework
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    "PAGE_SIZE": 20,
-}
-
-
-# JWT settings
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(
-        seconds=int(os.environ.get("JWT_ACCESS_TTL", 900))
-    ),
-    "REFRESH_TOKEN_LIFETIME": timedelta(
-        seconds=int(os.environ.get("JWT_REFRESH_TTL", 604800))
-    ),
-    "ROTATE_REFRESH_TOKENS": True,
-    "BLACKLIST_AFTER_ROTATION": True,
-    "AUTH_HEADER_TYPES": ("Bearer",),
-    "USER_ID_FIELD": "id",
-    "USER_ID_CLAIM": "user_id",
-}
-
-
 # CORS
 CORS_ALLOWED_ORIGINS = [
     origin.strip()
@@ -204,25 +122,13 @@ CORS_ALLOWED_ORIGINS = [
     if origin.strip()
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    origin
+    for origin in CORS_ALLOWED_ORIGINS
+    if urlparse(origin).scheme in {"http", "https"} and urlparse(origin).netloc
+]
+
+if not CORS_ALLOWED_ORIGINS:
+    CORS_ALLOWED_ORIGINS = ["http://localhost:5173", "http://localhost:3000"]
+
 CORS_ALLOW_CREDENTIALS = True
-
-
-# MSG91
-MSG91_AUTH_KEY = os.environ.get("MSG91_AUTH_KEY", "")
-MSG91_SENDER_ID = os.environ.get("MSG91_SENDER_ID", "NOBITA")
-MSG91_TEMPLATE_ID = os.environ.get("MSG91_TEMPLATE_ID", "")
-
-
-# Razorpay
-RAZORPAY_KEY_ID = os.environ.get("RAZORPAY_KEY_ID", "")
-RAZORPAY_KEY_SECRET = os.environ.get("RAZORPAY_KEY_SECRET", "")
-
-
-# Cloudinary
-CLOUDINARY_URL = os.environ.get("CLOUDINARY_URL", "")
-cloudinary.config(secure=True)
-
-
-# OTP
-OTP_LENGTH = 6
-OTP_EXPIRY_SECONDS = 300

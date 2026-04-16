@@ -9,7 +9,7 @@ export const OFFERS = [
   {
     id: 1,
     img: offerImg,
-    title: '20% Off Filter Kaapi',
+    title: 'Mini Tiffin',
     subtitle: 'Today only — 7AM to 10AM',
     badge: 'Morning Deal',
     gradient: 'from-amber-600 to-orange-500',

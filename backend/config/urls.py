@@ -11,7 +11,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # Core API
     path("api/", include("apps.orders.urls")),
-    path("api/menu/", include("apps.menu.urls")),
 ]
 
 if settings.DEBUG:
