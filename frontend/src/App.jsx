@@ -49,7 +49,8 @@ function App() {
       />
       <Routes>
         {/* ── User App ── */}
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/landing" element={<Landing />} />
         <Route path="/app" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
