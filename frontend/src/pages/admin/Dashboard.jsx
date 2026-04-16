@@ -79,8 +79,23 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchOrders()
-    const poller = setInterval(fetchOrders, 5000)
-    return () => clearInterval(poller)
+    const poller = setInterval(fetchOrders, 3000)
+
+    const handleFocus = () => fetchOrders()
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        fetchOrders()
+      }
+    }
+
+    window.addEventListener('focus', handleFocus)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      clearInterval(poller)
+      window.removeEventListener('focus', handleFocus)
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
   }, [fetchOrders])
 
   const now = useMemo(() => new Date(), [])
@@ -216,6 +231,7 @@ export default function Dashboard() {
   const handleStatusUpdate = async (orderId, nextStatus) => {
     try {
       await orderApi.updateOrderStatus(orderId, nextStatus)
+      await fetchOrders()
       setOrders((prev) =>
         prev.map((o) => (String(o.id) === String(orderId) ? { ...o, status: nextStatus } : o))
       )
