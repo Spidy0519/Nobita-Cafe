@@ -4,7 +4,9 @@
 import axios from 'axios'
 
 function normalizeApiBase(rawBase) {
-  const fallback = 'http://localhost:8000/api'
+  const fallback = import.meta.env.PROD
+    ? 'https://nobita-cafe.onrender.com/api'
+    : 'http://localhost:8000/api'
   if (!rawBase) return fallback
 
   const cleaned = String(rawBase).trim().replace(/\/+$/, '')
