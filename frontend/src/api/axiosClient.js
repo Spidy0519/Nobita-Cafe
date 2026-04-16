@@ -5,7 +5,7 @@ import axios from 'axios'
 
 function normalizeApiBase(rawBase) {
   const fallback = import.meta.env.PROD
-    ? 'https://nobita-cafe.onrender.com/api'
+    ? '/api'
     : 'http://localhost:8000/api'
   if (!rawBase) return fallback
 
